@@ -12,7 +12,7 @@ import UserNotifications
 class ViewController: UITableViewController {
 
     @IBOutlet weak var authorizationLabel: UILabel!
-    private var settings: UNNotificationSettings?
+    fileprivate var settings: UNNotificationSettings?
     
     enum Segue: String {
         case showAuthorization
@@ -39,7 +39,7 @@ class ViewController: UITableViewController {
         }
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let string = segue.identifier, let s = Segue(rawValue: string) else {
             return
         }
@@ -67,7 +67,7 @@ class ViewController: UITableViewController {
         }
     }
     
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == Segue.showAuthorization.rawValue {
             return true
         }

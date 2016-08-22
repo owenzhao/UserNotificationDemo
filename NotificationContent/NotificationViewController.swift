@@ -20,7 +20,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     
     var items: [NotificationPresentItem] = []
     
-    private var index: Int = 0
+    fileprivate var index: Int = 0
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var label: UILabel!
@@ -52,10 +52,10 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
             }
         }
         
-        updateUI(index: 0)
+        updateUI(0)
     }
     
-    private func updateUI(index: Int) {
+    fileprivate func updateUI(_ index: Int) {
         let item = items[index]
         if item.url.startAccessingSecurityScopedResource() {
             imageView.image = UIImage(contentsOfFile: item.url.path)
@@ -76,7 +76,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
                 nextIndex = 0
             }
             
-            updateUI(index: nextIndex)
+            updateUI(nextIndex)
             completion(.doNotDismiss)
         } else if response.actionIdentifier == "open" {
             completion(.dismissAndForwardAction)

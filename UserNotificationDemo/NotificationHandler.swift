@@ -98,15 +98,15 @@ class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
         if let category = UserNotificationCategoryType(rawValue: response.notification.request.content.categoryIdentifier) {
             switch category {
             case .saySomething:
-                handleSaySomthing(response: response)
+                handleSaySomthing(response)
             case .customUI:
-                handleCustomUI(response: response)
+                handleCustomUI(response)
             }
         }
         completionHandler()
     }
     
-    private func handleSaySomthing(response: UNNotificationResponse) {
+    fileprivate func handleSaySomthing(_ response: UNNotificationResponse) {
         let text: String
         
         if let actionType = SaySomethingCategoryAction(rawValue: response.actionIdentifier) {
@@ -125,7 +125,7 @@ class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
         }
     }
     
-    private func handleCustomUI(response: UNNotificationResponse) {
+    fileprivate func handleCustomUI(_ response: UNNotificationResponse) {
         print(response.actionIdentifier)
     }
 }

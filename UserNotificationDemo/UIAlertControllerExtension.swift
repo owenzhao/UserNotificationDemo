@@ -17,7 +17,7 @@ extension UIAlertController {
     
     static func showConfirmAlertFromTopViewController(message: String) {
         if let vc = UIApplication.shared.keyWindow?.rootViewController {
-            showConfirmAlert(message: message, in: vc)
+            showConfirmAlert(message:message, in: vc)
         }
     }
 }

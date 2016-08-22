@@ -13,7 +13,7 @@ class NotificationService: UNNotificationServiceExtension {
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
 
-    private func downloadAndSave(url: URL, handler: (localURL: URL?) -> Void) {
+    fileprivate func downloadAndSave(_ url: URL, handler: @escaping (_ localURL: URL?) -> Void) {
         let task = URLSession.shared.dataTask(with: url, completionHandler: {
             data, res, error in
             
@@ -29,14 +29,14 @@ class NotificationService: UNNotificationServiceExtension {
                 }
             }
             
-            handler(localURL: localURL)
+            handler(localURL)
         })
         
         task.resume()
     }
     
     
-    override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler:(UNNotificationContent) -> Void) {
+    override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler:@escaping (UNNotificationContent) -> Void) {
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
         
@@ -52,7 +52,7 @@ class NotificationService: UNNotificationServiceExtension {
                 if let imageURLString = bestAttemptContent.userInfo["image"] as? String,
                    let URL = URL(string: imageURLString)
                 {
-                    downloadAndSave(url: URL) { localURL in
+                    downloadAndSave(URL) { localURL in
                         if let localURL = localURL {
                             do {
                                 let attachment = try UNNotificationAttachment(identifier: "image_downloaded", url: localURL, options: nil)
